@@ -27,7 +27,6 @@ function getRekap($audri_periode, $audri_tanggal = null, $audri_bulan = null, $a
         $audri_where .= " AND (pr.nama_produk LIKE '%$audri_searchKeyword%' OR p.Id_penjualan LIKE '%$audri_searchKeyword%')";
     }
 
-    // Query untuk mengambil data penjualan dengan LEFT JOIN
     $audri_query = "SELECT 
                 p.Id_penjualan, 
                 p.tanggal_penjualan, 
@@ -154,7 +153,6 @@ $audri_totalPenjualan = $audri_result['total_penjualan'];
                     </button>
                 </form>
 
-                <!-- Tombol Print -->
                 <button onclick="window.print()" class="no-print">Print Laporan</button>
             </div>
 
@@ -166,7 +164,6 @@ $audri_totalPenjualan = $audri_result['total_penjualan'];
                     <p>Telepon: (022) 123-4567</p>
                 </div>
 
-                <!-- Garis Pembatas -->
                 <hr style="border: 1px solid black; margin: 10px 0;">
 
                 <!-- Judul Laporan -->

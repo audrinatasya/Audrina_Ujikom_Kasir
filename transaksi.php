@@ -82,16 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['jumlah_pembayaran']))
                 if (isset($_POST['nama_pelanggan_member'])) {
                     $audri_Id_pelanggan = (int) $_POST['nama_pelanggan_member'];
                     
-              
-                    error_log("ID Pelanggan: " . $audri_Id_pelanggan);
-                 
                     $result = mysqli_query($conn, "SELECT nama_pelanggan FROM pelanggan WHERE Id_pelanggan = $audri_Id_pelanggan");
                     $row = mysqli_fetch_assoc($result);
                     
-              
-                    error_log("Hasil Query: " . print_r($row, true));
-                    
-                
                     if ($row) {
                         $audri_nama_pelanggan = $row['nama_pelanggan'];
                     } else {
@@ -107,35 +100,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['jumlah_pembayaran']))
 
                 $audri_sql_pelanggan = "INSERT INTO pelanggan (nama_pelanggan, alamat, no_telepon) 
                                         VALUES ('$audri_nama_pelanggan', '$audri_alamat', '$audri_nomor_telepon')";
-                mysqli_query($conn, $audri_sql_pelanggan);
-                $audri_Id_pelanggan = mysqli_insert_id($conn);
+                
+                if (mysqli_query($conn, $audri_sql_pelanggan)) {
+                    $audri_Id_pelanggan = mysqli_insert_id($conn);
+                } else {
+                    $error_message = "Gagal menambahkan pelanggan baru: " . mysqli_error($conn);
+                }
             } else {
                 $audri_Id_pelanggan = NULL; 
             }
         }
 
+        if (empty($error_message)) {
+            $audri_sql_penjualan = "INSERT INTO penjual (tanggal_penjualan, total_harga, Id_pelanggan) 
+                                    VALUES ('$audri_tanggalPenjualan', '$audri_totalHarga', '$audri_Id_pelanggan')";
+            if (mysqli_query($conn, $audri_sql_penjualan)) {
+                $audri_ID_penjualan = mysqli_insert_id($conn);
 
-        $audri_sql_penjualan = "INSERT INTO penjual (tanggal_penjualan, total_harga, Id_pelanggan) 
-                                VALUES ('$audri_tanggalPenjualan', '$audri_totalHarga', '$audri_Id_pelanggan')";
-        mysqli_query($conn, $audri_sql_penjualan);
-        $audri_ID_penjualan = mysqli_insert_id($conn);
+                foreach ($audri_cart as $audri_item) {
+                    $audri_subtotal = $audri_item['harga'] * $audri_item['jumlah'];
+                    $audri_Id_produk = $audri_item['Id_produk'];
+                    $audri_jumlah_produk = $audri_item['jumlah'];
 
-   
-        foreach ($audri_cart as $audri_item) {
-            $audri_subtotal = $audri_item['harga'] * $audri_item['jumlah'];
-            $audri_Id_produk = $audri_item['Id_produk'];
-            $audri_jumlah_produk = $audri_item['jumlah'];
+                    $audri_sql_detail = "INSERT INTO detail_penjualan (Id_penjualan, Id_produk, jumlah_produk, subtotal) 
+                                         VALUES ('$audri_ID_penjualan', '$audri_Id_produk', '$audri_jumlah_produk', '$audri_subtotal')";
+                    mysqli_query($conn, $audri_sql_detail);
 
-            $audri_sql_detail = "INSERT INTO detail_penjualan (Id_penjualan, Id_produk, jumlah_produk, subtotal) 
-                                 VALUES ('$audri_ID_penjualan', '$audri_Id_produk', '$audri_jumlah_produk', '$audri_subtotal')";
-            mysqli_query($conn, $audri_sql_detail);
+                    $audri_sql_update_stock = "UPDATE produk SET stok = stok - $audri_jumlah_produk WHERE Id_produk = '$audri_Id_produk'";
+                    mysqli_query($conn, $audri_sql_update_stock);
+                }
 
-            $audri_sql_update_stock = "UPDATE produk SET stok = stok - $audri_jumlah_produk WHERE Id_produk = '$audri_Id_produk'";
-            mysqli_query($conn, $audri_sql_update_stock);
+                $audri_kembalian = $audri_jumlah_pembayaran - $audri_totalHarga;
+                unset($_SESSION['cart']);
+            } else {
+                $error_message = "Gagal menambahkan penjualan: " . mysqli_error($conn);
+            }
         }
-
-        $audri_kembalian = $audri_jumlah_pembayaran - $audri_totalHarga;
-        unset($_SESSION['cart']);
     }
 }
 
@@ -184,7 +184,6 @@ $audri_daftarBarang = isset($audri_cart) ? $audri_cart : [];
                 <p><strong>Jumlah:</strong> <?= $audri_item['jumlah'] ?></p>
                 <p><strong>Total:</strong> Rp. <?= number_format($audri_item['harga'] * $audri_item['jumlah'], 0, ',', '.') ?></p>
                 
-                <!-- Tombol Tambah dan Kurang -->
                 <a href="?action=kurang&Id_produk=<?= $audri_item['Id_produk'] ?>" >-</a>
                 <a href="?action=tambah&Id_produk=<?= $audri_item['Id_produk'] ?>" >+</a>
                 <a href="?hapus_item=<?= $audri_item['Id_produk'] ?>" class="delete-button"><i class='uil uil-trash-alt'></i></a>
@@ -234,7 +233,7 @@ $audri_daftarBarang = isset($audri_cart) ? $audri_cart : [];
                 <label>Nomor Telepon:</label>
                 <input type="text" id="nomor_telepon_member" disabled>
             </div>
-            <!-- Input hidden untuk menyimpan ID pelanggan -->
+        
             <input type="hidden" name="nama_pelanggan_member" id="nama_pelanggan_member">
         </div>
 
@@ -274,10 +273,10 @@ $audri_daftarBarang = isset($audri_cart) ? $audri_cart : [];
 </div>
 
 <!-- Transaksi Berhasil -->
-<!-- Transaksi Berhasil -->
+
 <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($audri_jumlah_pembayaran) && empty($error_message)): ?>
     <div class="transaction-success">
-        <!-- Informasi Toko -->
+  
         <div class="store-info">
             <h2>Bubble Scarf</h2>
             <p>Jl. Disini No.123, Bandung</p>
