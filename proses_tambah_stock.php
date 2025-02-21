@@ -6,7 +6,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_produk = $_POST['id_produk'];
     $jumlah_stock = $_POST['jumlah_stock'];
 
-    // Update stock in the database
     $sql = "UPDATE produk SET stok = stok + ? WHERE Id_produk = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $jumlah_stock, $id_produk);

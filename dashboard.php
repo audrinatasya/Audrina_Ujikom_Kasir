@@ -115,7 +115,6 @@ canvas {
                 $dataBarang = mysqli_fetch_assoc($resultTotalBarang);
                 $totalBarangTerjual = $dataBarang['total_barang'] ?? 0;
 
-                // Query untuk mendapatkan total penjualan per bulan
                 $queryPenjualanPerBulan = "SELECT DATE_FORMAT(tanggal_penjualan, '%Y-%m') AS bulan, 
                                                   SUM(total_harga) AS total 
                                            FROM penjual 
@@ -126,7 +125,6 @@ canvas {
                 $bulanArray = [];
                 $totalArray = [];
                 while ($row = mysqli_fetch_assoc($resultPenjualanPerBulan)) {
-                    // Format bulan agar lebih mudah dibaca (contoh: "2024-01" jadi "Januari 2024")
                     $bulanNama = date("F Y", strtotime($row['bulan'] . "-01"));
                     $bulanArray[] = $bulanNama;
                     $totalArray[] = $row['total'];

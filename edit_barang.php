@@ -38,7 +38,6 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    // Update produk tanpa mengubah stok
     $audri_sql = "UPDATE produk 
             SET nama_produk = '$audri_nama_produk', 
                 harga = '$audri_harga', 
@@ -62,10 +61,10 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="tambah_data.css">
     <style>
         .readonly-input {
-            background-color: #f0f0f0; /* Warna latar belakang abu-abu muda */
-            border: 1px solid #ccc; /* Border abu-abu */
-            color: #666; /* Warna teks abu-abu */
-            pointer-events: none; /* Nonaktifkan interaksi */
+            background-color: #f0f0f0; 
+            border: 1px solid #ccc; 
+            color: #666; 
+            pointer-events: none; 
         }
     </style>
 </head>

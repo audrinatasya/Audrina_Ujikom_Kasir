@@ -282,9 +282,9 @@ i.user.plus{
         text-align: center;
     }
 
-    .print-section h1{
+    .print-section h1 {
         margin-top: 20px;
-        color:  rgb(40, 38, 38);
+        color: rgb(40, 38, 38);
     }
 
     .container, .print-area {
@@ -299,23 +299,20 @@ i.user.plus{
         margin: auto;
         border-collapse: collapse;
         text-align: center;
-        margin-top: 150px;
+        margin-top: 100px;
     }
-
-    
 
     .table th, .table td {
         border: 1px solid rgb(40, 38, 38);
         padding: 8px;
         font-size: 12px;
-        color:  rgb(40, 38, 38);
+        color: rgb(40, 38, 38);
     }
 
     .judul-laporan, h3, p {
         margin-bottom: 2px;
-        color:  rgb(40, 38, 38);
+        color: rgb(40, 38, 38);
     }
-    
 
     .ttd {
         text-align: right;
@@ -349,5 +346,11 @@ i.user.plus{
     .main-content {
         margin-left: 0;
         width: 100%;
+    }
+}
+
+@media screen {
+    .print-section {
+        display: none; 
     }
 }

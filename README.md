@@ -9,7 +9,7 @@ Sebelum menjalankan aplikasi, pastikan sistem kamu memenuhi persyaratan berikut:
 -   **Web Server** : XAMPP (Apache & MySQL)
 -   **Bahasa Pemrograman** : PHP 7.x atau lebih baru
 -   **Database** : MySQL/MariaDB
--   **Browser** : Google Chrome atau Mozilla Firefox)
+-   **Browser** : Google Chrome atau Mozilla Firefox
 
 ## Instalasi
 

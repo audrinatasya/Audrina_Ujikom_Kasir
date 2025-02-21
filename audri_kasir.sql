@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Feb 2025 pada 09.19
+-- Waktu pembuatan: 21 Feb 2025 pada 05.05
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -44,13 +44,7 @@ INSERT INTO `detail_penjualan` (`Id_detail`, `Id_penjualan`, `Id_produk`, `jumla
 (2, 1, '4', 1, 35000.00),
 (3, 1, '3', 1, 35000.00),
 (4, 2, '2', 2, 70000.00),
-(5, 2, '5', 2, 70000.00),
-(6, 3, '6', 1, 35000.00),
-(7, 4, '3', 3, 105000.00),
-(8, 5, '4', 3, 105000.00),
-(9, 5, '1', 1, 35000.00),
-(10, 6, '1', 3, 105000.00),
-(11, 6, '2', 1, 35000.00);
+(5, 2, '5', 2, 70000.00);
 
 -- --------------------------------------------------------
 
@@ -73,9 +67,7 @@ INSERT INTO `pelanggan` (`Id_pelanggan`, `nama_pelanggan`, `alamat`, `no_telepon
 (1, 'Audrina', 'Bandung', '085937640210'),
 (2, 'Tasya', 'Cimahi', '0892736452'),
 (3, 'Lenyta', 'Padalarang', '0897645312'),
-(4, 'Azahra', 'Cimahi Utara', '08372649813'),
-(5, 'Lenyta', 'Cibabat', '0876936451'),
-(6, 'Lenyta', 'Cibabat', '087685432');
+(4, 'Azahra', 'Cimahi Utara', '08372649813');
 
 -- --------------------------------------------------------
 
@@ -96,11 +88,7 @@ CREATE TABLE `penjual` (
 
 INSERT INTO `penjual` (`Id_penjualan`, `tanggal_penjualan`, `total_harga`, `Id_pelanggan`) VALUES
 (1, '2025-01-21', 105000.00, 1),
-(2, '2025-02-03', 140000.00, 2),
-(3, '2025-02-12', 35000.00, 3),
-(4, '2025-02-12', 105000.00, 4),
-(5, '2025-02-19', 140000.00, 5),
-(6, '2025-02-19', 140000.00, 6);
+(2, '2025-02-03', 140000.00, 2);
 
 -- --------------------------------------------------------
 
@@ -225,19 +213,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `detail_penjualan`
 --
 ALTER TABLE `detail_penjualan`
-  MODIFY `Id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `Id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `Id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `penjual`
 --
 ALTER TABLE `penjual`
-  MODIFY `Id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `produk`

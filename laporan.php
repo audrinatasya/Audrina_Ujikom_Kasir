@@ -24,6 +24,7 @@ function getRekap($audri_periode, $audri_tanggal = null, $audri_bulan = null, $a
     }
 
     if (!empty($audri_searchKeyword)) {
+        $audri_searchKeyword = mysqli_real_escape_string($conn, $audri_searchKeyword);
         $audri_where .= " AND (pr.nama_produk LIKE '%$audri_searchKeyword%' OR p.Id_penjualan LIKE '%$audri_searchKeyword%')";
     }
 
@@ -45,12 +46,15 @@ function getRekap($audri_periode, $audri_tanggal = null, $audri_bulan = null, $a
 
     $audri_result = mysqli_query($conn, $audri_query);
     $audri_data = mysqli_fetch_all($audri_result, MYSQLI_ASSOC);
-
+    
     $audri_totalPenjualanQuery = "SELECT SUM(p.total_harga) AS total_penjualan
                             FROM penjual p
                             WHERE $audri_where";
 
     $audri_totalPenjualanResult = mysqli_query($conn, $audri_totalPenjualanQuery);
+    if (!$audri_totalPenjualanResult) {
+        error_log("Query Error: " . mysqli_error($conn));
+    }
     $audri_totalPenjualanData = mysqli_fetch_assoc($audri_totalPenjualanResult);
     
     return [
@@ -140,48 +144,36 @@ $audri_totalPenjualan = $audri_result['total_penjualan'];
                 </form>
 
                 <!-- Form Pencarian -->
-                <form method="GET" action="laporan.php" class="search-box" style="margin-right: 50px;">
-                    <input type="text" name="search" placeholder="Search produk..." class="search-input" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>" >
-                    
-                    <input type="hidden" name="periode" value="<?= htmlspecialchars($audri_periode) ?>">
-                    <input type="hidden" name="tanggal" value="<?= htmlspecialchars($audri_tanggal) ?>">
-                    <input type="hidden" name="bulan" value="<?= htmlspecialchars($audri_bulan) ?>">
-                    <input type="hidden" name="tahun" value="<?= htmlspecialchars($audri_tahun) ?>">
-                    
-                    <button type="submit" class="search-btn">
-                        <i class="uil uil-search uil-search"></i>
-                    </button>
-                </form>
 
                 <button onclick="window.print()" class="no-print">Print Laporan</button>
             </div>
 
             <div class="print-section" style="text-align: center;">
-                <!-- Header Toko -->
-                <div class="header-toko" style="margin-bottom: 10px;">
-                    <h1 style=" color:  rgb(73, 70, 70);">Bubble Scarf</h1>
-                    <p>Jl. Disini No.123, Bandung</p>
-                    <p>Telepon: (022) 123-4567</p>
-                </div>
+    <!-- Header Toko -->
+    <div class="header-toko" style="margin-bottom: 10px;">
+        <h1 style="color: rgb(73, 70, 70); font-family: 'Arial', sans-serif; font-size: 24px; margin: 5px 0; margin-top: 25px;">Bubble Scarf</h1>
+        <p style="color: rgb(73, 70, 70); font-family: 'Arial', sans-serif; font-size: 14px; margin: 5px 0;">Jl. Disini No.123, Bandung</p>
+        <p style="color: rgb(73, 70, 70); font-family: 'Arial', sans-serif; font-size: 14px; margin: 5px 0;">Telepon: (022) 123-4567 | email : bubble.scarf@gmail.com</p>
+    </div>
 
-                <hr style="border: 1px solid black; margin: 10px 0;">
+    <hr style="border: 1px solid black; margin: 10px 0;">
 
-                <!-- Judul Laporan -->
-                <h2 class="judul-laporan" style=" color:  rgb(63, 60, 60); margin-top: 20px;">Laporan Penjualan</h2>
-                <p style="margin-right: 66%; margin-top: 25px">Periode Laporan  :  
-                    <?php
-                    if ($audri_periode == 'perhari') {
-                        echo date('d-m-Y', strtotime($audri_tanggal));
-                    } elseif ($audri_periode == 'perbulan') {
-                        echo date('F Y', strtotime($audri_tahun . '-' . $audri_bulan . '-01'));
-                    } elseif ($audri_periode == 'pertahun') {
-                        echo $audri_tahun;
-                    }
-                    ?>
-                </p>
-            </div>
+    <!-- Judul Laporan -->
+    <h2 class="judul-laporan" style="color: rgb(63, 60, 60); font-family: 'Arial', sans-serif; font-size: 20px; margin-top: 20px;">Laporan Penjualan</h2>
+    <p style="margin-right: 66%; margin-top: 25px; font-family: 'Arial', sans-serif; font-size: 14px;">Periode Laporan  :  
+        <?php
+        if ($audri_periode == 'perhari') {
+            echo date('d-m-Y', strtotime($audri_tanggal));
+        } elseif ($audri_periode == 'perbulan') {
+            echo date('F Y', strtotime($audri_tahun . '-' . $audri_bulan . '-01'));
+        } elseif ($audri_periode == 'pertahun') {
+            echo $audri_tahun;
+        }
+        ?>
+    </p>
+</div>
 
-            <table class="table" style= "text-align: center;">
+<table class="table" style="text-align: center;">
     <thead>
         <tr>
             <th>No Transaksi</th>
@@ -234,15 +226,13 @@ $audri_totalPenjualan = $audri_result['total_penjualan'];
     </tfoot>
 </table>
 
-
-
-            <!-- TTD -->
-            <div class="ttd" style="margin-top: 20px;">
-                <h4>Tanggal Cetak: <?php echo date('d-m-Y'); ?></h4>
-                <p>Yang Mencetak,</p>
-                <div style="border-top: none; width: 200px; margin-top: 50px; margin-left: 100%;"></div>
-                <p><?php echo htmlspecialchars($audri_username); ?></p>
-            </div>
+<!-- TTD -->
+<div class="ttd" style="margin-top: 20px;">
+    <h4>Tanggal Cetak: <?php echo date('d-m-Y'); ?></h4>
+    <p>Yang Mencetak,</p>
+    <div style="border-top: none; width: 200px; margin-top: 50px; margin-left: 100%;"></div>
+    <p><?php echo htmlspecialchars($audri_username); ?></p>
+</div>
     </main>
 </div>
 

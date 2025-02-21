@@ -1,6 +1,6 @@
 document.getElementById('searchPelanggan').addEventListener('input', function() {
     var searchQuery = this.value;
-    if (searchQuery.length > 2) { // Mulai pencarian setelah 3 karakter
+    if (searchQuery.length > 2) { 
         fetch('get_pelanggan.php?search=' + searchQuery)
             .then(response => response.json())
             .then(data => {

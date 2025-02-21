@@ -3,15 +3,14 @@ include 'config.php';
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-$query = "SELECT * FROM pelanggan WHERE nama_pelanggan LIKE ?";
-$stmt = $conn->prepare($query);
 $searchTerm = '%' . $search . '%';
-$stmt->bind_param('s', $searchTerm);
-$stmt->execute();
-$result = $stmt->get_result();
+$searchTerm = mysqli_real_escape_string($conn, $search);
+
+$query = "SELECT * FROM pelanggan WHERE nama_pelanggan LIKE '%$searchTerm%'";
+$result = mysqli_query($conn, $query);
 
 $pelanggan = [];
-while ($row = $result->fetch_assoc()) {
+while ($row = mysqli_fetch_assoc($result)) {
     $pelanggan[] = $row;
 }
 

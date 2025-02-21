@@ -280,7 +280,7 @@ $audri_daftarBarang = isset($audri_cart) ? $audri_cart : [];
         <div class="store-info">
             <h2>Bubble Scarf</h2>
             <p>Jl. Disini No.123, Bandung</p>
-            <p>Telepon: (022) 123-4567</p>
+            <p>Telepon: (022) 123-4567 | email : bubble.scarf@gmail.com</p>
         </div>
         
         <hr class="divider">
