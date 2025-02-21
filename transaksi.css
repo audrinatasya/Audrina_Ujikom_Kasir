@@ -1,0 +1,438 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@270;400;500;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f7fa; 
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 55%; 
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h2{
+    font-size: 28px;
+    color:  #e74fa5;
+}
+
+h3 {
+    font-size: 24px;
+    color: #ff77c4; 
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 6px;
+   color: #e65c97;
+}
+
+.form-group input, .form-group textarea {
+    width: 95%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid #f0d7e5;
+    background-color: #fef2f9;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #ff77c4;
+    outline: none;
+}
+
+/* Tombol utama */
+button {
+    display: inline-block;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #ff77c4; /* Warna pink muda */
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+    margin: 10px 0;
+}
+
+button:hover {
+    background-color: #e65c97;  
+    transform: scale(1.05);
+}
+
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.product-card {
+    flex: 1 1 calc(40% - 18px);
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+.product-card h3 {
+    font-size: 20px;
+    color: #ff77c4;
+    text-align: center;
+    font-weight: 700;
+}
+
+.product-card p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 15px;
+    margin-inline-start: 17px;
+}
+
+.product-card a[href*="tambah"],
+.product-card a[href*="kurang"] {
+    display: inline-block;
+    padding: 5px;
+    margin: 2px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border: none;
+    border-radius: 30%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    margin-bottom: 7px;
+}
+
+.product-card a[href*="tambah"] {
+    background-color: #28A745; 
+}
+
+.product-card a[href*="kurang"] {
+    background-color: #DC3545; 
+    margin-left: 60%;
+  
+}
+
+.product-card a[href*="tambah"]:hover,
+.product-card a[href*="kurang"]:hover {
+    opacity: 0.9;
+    transform: scale(1.1); 
+}
+
+.product-card a[href*="tambah"]:active,
+.product-card a[href*="kurang"]:active {
+    transform: scale(0.95); 
+}
+
+.product-card .delete-button {
+    position: absolute;
+    bottom: 10px;
+    right: 20px; 
+    padding: 5px 10px;
+    background-color: #da2c88;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.product-card .delete-button:hover {
+    background-color: #c42d78;
+}
+
+.grand-total {
+    margin-top: 35px;
+    font-size: 20px;
+    text-align: center;
+    color:  #da2c88;
+    font-weight: 700;
+    padding: 3px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+button {
+    padding: 12px 22px;
+    background-color: rgb(197, 120, 197);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    align-self: center;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+button:hover {
+    background-color: cornflowerblue;
+    transform: scale(1.05);
+}
+
+.transaction-success {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.transaction-success h5 {
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.transaction-success h4 {
+    margin-top: 15px;
+    font-size: 16px;
+    color: violet;
+}
+
+/* Info Toko */
+.store-info h2 {
+    font-size: 18px;
+    color: palevioletred;
+    margin-bottom: 5px;
+}
+
+.store-info p {
+    font-size: 14px;
+    margin: 0;
+    color: #444;
+}
+
+.transaction-success ul.item-list {
+    list-style: none;
+    padding: 0;
+}
+
+.transaction-success ul.item-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 14px;
+}
+
+.transaction-success .info p {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+.transaction-success .action-buttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.transaction-success .btn {
+    display: inline-block;
+    padding: 8px 15px;
+    color: white;
+    background-color: #da2c88;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 13px;
+    transition: background-color 0.3s;
+}
+
+.transaction-success .btn:hover {
+    background-color: #c9277e;
+}
+
+/* Cetak */
+@media print {
+    .transaction-success {
+        max-width: 100%;
+        box-shadow: none;
+        border: none;
+    }
+
+    .transaction-success h3, 
+    .store-info h2 {
+        font-size: 20px;
+    }
+
+    .transaction-success .info p,
+    .transaction-success ul.item-list li {
+        font-size: 16px;
+    }
+
+    .transaction-success .btn {
+        display: none;
+    }
+}
+
+
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-weight: 400;
+    color: #555;
+}
+
+.radio-group .group-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #e65c97;
+}
+
+.radio-group .radio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-group .radio-item label {
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+}
+
+.radio-group .radio-item label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #ff77c4;
+    background-color: white;
+    transition: 0.3s;
+}
+
+.radio-group .radio-item label:hover::before {
+    border-color: #ff4da7;
+}
+
+.radio-group input[type="radio"]:checked + label::before {
+    background: #ff77c4;
+    border: 4px solid white;
+    box-shadow: 0 0 0 2px #ff77c4;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute; 
+    background-color: #f9f9f9; 
+    min-width: 160px; 
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); 
+    z-index: 1; 
+    border-radius: 12px; 
+    border: 1px solid #f0d7e5;
+    margin-top: 5px; 
+}
+
+.dropdown-content div {
+    padding: 12px 16px; 
+    cursor: pointer; 
+    color: #555; 
+    transition: background-color 0.3s; 
+}
+
+.dropdown-content div:hover {
+    background-color: #f1f1f1; 
+}
+
+/* Style untuk container select-member */
+.select-member {
+    position: relative; /* Posisi relatif untuk container */
+    width: 100%; /* Lebar penuh */
+    margin-bottom: 20px; /* Jarak dari elemen bawah */
+}
+
+/* Style untuk input di dalam select-member */
+.select-member input {
+    width: 100%; /* Lebar penuh */
+    padding: 12px 35px 12px 12px; /* Padding untuk input */
+    font-size: 16px; /* Ukuran font */
+    border-radius: 12px; /* Sudut bulat */
+    border: 1px solid #f0d7e5; /* Border dengan warna soft pink */
+    background: #fef2f9; /* Warna latar belakang */
+    transition: border-color 0.3s; /* Transisi untuk border */
+    color: #555; /* Warna teks */
+    box-sizing: border-box; /* Pastikan padding tidak mempengaruhi lebar */
+}
+
+/* Style saat input di-focus */
+.select-member input:focus {
+    border-color: #ff77c4; /* Ubah warna border saat focus */
+    outline: none; /* Hilangkan outline default */
+}
+
+/* Style untuk label di dalam select-member */
+.select-member label {
+    font-weight: 700; /* Tebalkan font */
+    display: block; /* Buat label menjadi block */
+    margin-bottom: 6px; /* Jarak dari input */
+    color: #e65c97; /* Warna teks label */
+    margin-top: 16px; /* Jarak dari elemen atas */
+}
+
+/* Style untuk dropdown saat ditampilkan */
+.select-member .dropdown-content {
+    width: 100%; /* Lebar penuh */
+    max-height: 200px; /* Batasi tinggi dropdown */
+    overflow-y: auto; /* Tambahkan scroll jika konten terlalu panjang */
+    padding: 0; /* Hilangkan padding default */
+}
+
